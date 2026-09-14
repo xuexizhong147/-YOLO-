@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "captcha-solver"
+version = "1.0.0"
+description = "朝向类验证码识别库：输入截图，输出箭头朝向、物体物种/朝向/中心、点击坐标"
+readme = "README.md"
+requires-python = ">=3.8"
+keywords = ["captcha", "yolo", "object-detection", "orientation"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Operating System :: OS Independent",
+]
+# 【必须的依赖】pip install 时会自动装这 4 个
+dependencies = [
+    "ultralytics>=8.3.0",       # YOLO 推理框架（会自动带上 torch）
+    "opencv-python>=4.8.0",    # 图像处理 + 箭头检测
+    "numpy>=1.24.0",
+    "pillow>=10.0.0",
+]
+
+[project.optional-dependencies]
+# 可选：想在自己电脑上模拟鼠标点击时再装
+click = ["pyautogui>=0.9.54"]
+
+[project.urls]
+Homepage = "https://github.com/<你的用户名>/captcha-solver"
+
+[tool.setuptools]
+packages = ["captcha_solver"]
+
+# 把模型权重和内置测试图一起打包 -> pip install 之后就有测试图可用
+[tool.setuptools.package-data]
+captcha_solver = ["models/*.pt", "samples/*.png"]
